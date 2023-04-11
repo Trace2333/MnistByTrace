@@ -1,5 +1,6 @@
 import torch.nn as nn
 import os
+import torch
 import wandb
 from torch.utils.data import Dataset
 
@@ -51,5 +52,30 @@ class NNForMnist(nn.Module):
 
 # When manually load the data from the disk
 class MnistDataset(Dataset):
-    def __init__(self):
+    def __init__(self, pils, labels):
         super(MnistDataset, self).__init__()
+	# input type: list of pictures(PIL)
+	self.samples = pils
+	self.labels = labels
+
+    def __getitem__(self, index):
+	return (self.samples[index], self.labels[index])
+
+    def __len__(self)
+	assert len(self.samples) == len(self.labels)
+	return len(self.samples)
+	
+
+def collate_fn_for_pils(batch):
+	# input type: 
+	# 	batch:train_samples, train_labels
+	#	list of tuples.
+    batch_size = len(batch)
+    samples = [torch.tensor(s[0]) for s in batch]
+    labels = [s[1] for s in batch]
+    labels = torch.tensor(labels, dtype=torch.int)
+    return samples, labels
+    
+    
+
+

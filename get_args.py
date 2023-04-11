@@ -3,7 +3,13 @@ import argparse
 
 def get_args():
     parser = argparse.ArgumentParser()
-
+    
+    parser.add_argument(
+	'--device_type',
+	default='cpu',
+	type=str,
+	help="Select between cpu and gpu",
+)
     parser.add_argument(
         '--batch_size',
         default=16,
