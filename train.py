@@ -104,12 +104,17 @@ def train(args, device):
     logging.info("On TESTING Loop...")
     model.eval()
     for epoch in range(args.test_epochs):
-        for t, batch in tqdm(enumerate(test_loader), desc="Testing"):
+        test_l = tqdm(enumerate(test_loader), desc="Testing")
+        for t, batch in test_l:
             x, y = batch
             # no device...
             x = x.to(device)
             y = y.to(device)
             out = model(x)
+            test_p = torch.sum(out.argmax(-1) == y) / args.test_batch_size
+            test_l.set_postfix(epoch=epoch, test_precision=test_p)
+            if args.use_log:
+                wandb.log({"test_precision": test_p})
 
 
 if __name__ == '__main__':

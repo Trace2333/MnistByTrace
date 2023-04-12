@@ -17,12 +17,12 @@ def get_args():
     )
     parser.add_argument(
         '--test_batch_size',
-        default=32,
+        default=16,
         type=int,
     )
     parser.add_argument(
         '--lr',
-        default=1e-4,
+        default=2e-3,
         type=int,
     )
     parser.add_argument(

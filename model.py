@@ -47,7 +47,6 @@ class NNForMnist(nn.Module):
             "batch_size": self.args.batch_size,
             "epochs": self.args.epochs,
             "lr": self.args.lr,
-
         }
         if self.args.use_log:
             wandb.login(host='http://47.108.152.202:8080',
