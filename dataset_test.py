@@ -1,8 +1,8 @@
-from datasets import load_dataset
-from PIL import Image
-from torch.utils.data import DataLoader
-import torch
 import pickle as pkl
+
+from datasets import load_dataset
+from torch.utils.data import DataLoader
+
 from model import collate_fn_for_hf, collate_fn_for_manual, MnistDataset
 
 trans_dataset = load_dataset("fashion_mnist")

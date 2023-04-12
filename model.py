@@ -49,10 +49,10 @@ class NNForMnist(nn.Module):
             "lr": self.args.lr,
         }
         if self.args.use_log:
+            os.system("wandb online")
             wandb.login(host='http://47.108.152.202:8080',
                         key='local-86eb7fd9098b0b6aa0e6ddd886a989e62b6075f0')
             wandb.init(project='NNForMnist', config=config)
-            os.system("wandb online")
         else:
             os.system("wandb offline")
 
@@ -91,6 +91,6 @@ def collate_fn_for_manual(batch):
     # batch: list of ndarray
     # size: [b, 748]
     trans = transforms.ToTensor()
-    samples = trans(np.array([x[0] for x in batch])).to(torch.float32).permute(1, 0, 2)
+    samples = trans(np.array([x[0] for x in batch])).to(torch.float32).squeeze(0)
     labels = torch.tensor([x[1] for x in batch]).to(torch.long)
     return samples, labels

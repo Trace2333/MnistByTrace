@@ -1,4 +1,5 @@
 import logging
+import os.path
 import pickle as pkl
 
 import torch
@@ -8,13 +9,14 @@ from torch.utils.data import DataLoader
 from tqdm import tqdm
 
 from get_args import get_args
+from prepare_data import prepare
 from model import MnistDataset, NNForMnist, collate_fn_for_hf, collate_fn_for_manual
 
 
 def train(args, device):
-
+    # init the model
     model = NNForMnist(args).to(device)
-
+    # init the log func
     model.log_init()
 
     if args.hf_dataset:
@@ -36,6 +38,9 @@ def train(args, device):
             collate_fn=collate_fn_for_hf,
         )
     else:
+        if os.path.exists('./f_mnist/fashion_mnist_images_train.pkl'):
+            prepare()
+
         # if changed dataset, please change the file path to the data...
         with open("./f_mnist/fashion_mnist_images_train.pkl", "rb") as f1:
             data_train = pkl.load(f1)
@@ -59,7 +64,7 @@ def train(args, device):
         )
         test_loader = DataLoader(
             dataset=dataset_test,
-            batch_size=args.batch_size,
+            batch_size=args.test_batch_size,
             shuffle=False,
             num_workers=0,
             collate_fn=collate_fn_for_manual,

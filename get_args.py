@@ -71,9 +71,10 @@ def get_args():
     )
     parser.add_argument(
         '--hf_dataset',
-        default=True,
+        default=False,
         type=bool,
-        help="if use the huggingface datasets module for the fashion mnist dataset.",
+        help="if use the huggingface datasets module for the fashion mnist dataset"
+             ".Use manual built dataset is much faster than the hf,but it need prepare the data in advance",
     )
 
     args = parser.parse_args()
