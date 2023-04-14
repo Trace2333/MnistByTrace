@@ -41,7 +41,7 @@ def get_args():
     )
     parser.add_argument(
         '--epochs',
-        default=20,
+        default=40,
         type=int,
     )
     parser.add_argument(
@@ -56,7 +56,7 @@ def get_args():
     )
     parser.add_argument(
         '--optim_type',
-        default='SGD',
+        default='Adam',
         type=str,
     )
     parser.add_argument(

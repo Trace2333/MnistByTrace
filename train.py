@@ -123,11 +123,14 @@ def train(args, device):
 
 
 if __name__ == '__main__':
+
+    logging.basicConfig(level=logging.INFO)
+
     args = get_args()
     if args.device_type == 'gpu':
         device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     else:
-        # no TPU, HPU availabl...
+        # no TPU, NPU available...
         device = torch.device('cpu')
     train(args=args,
           device=device)
